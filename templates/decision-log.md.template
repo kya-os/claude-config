@@ -1,0 +1,46 @@
+# Decision Log Template
+
+Add to plan files, README.md files, or standalone decision documents.
+
+## Format
+
+```markdown
+## Decision Log
+
+| Decision | Options Considered | Choice | Rationale |
+|----------|-------------------|--------|-----------|
+| [What was decided] | [A, B, C] | [Which option] | [Why this one] |
+```
+
+## Examples
+
+### Good Decision Log Entries
+
+| Decision | Options Considered | Choice | Rationale |
+|----------|-------------------|--------|-----------|
+| Auth method | JWT (stateless), Sessions (server-side), OAuth only | Sessions | Team familiarity, NextAuth already configured |
+| State management | Redux, Zustand, Context API | Zustand | Simpler API, sufficient for app scope, smaller bundle |
+| Cache layer | Redis, In-memory, None | Redis | Already in infrastructure, handles multi-instance |
+
+### Bad Decision Log Entries
+
+| Problem | Example | Why It's Bad |
+|---------|---------|--------------|
+| No alternatives | "Chose React" | Doesn't explain what else was considered |
+| No rationale | "Options: A, B. Choice: A" | Doesn't explain WHY |
+| Vague rationale | "B seemed better" | Not actionable, not verifiable |
+| Missing decision | Just implemented without logging | Future maintainers don't know why |
+
+## When to Log Decisions
+
+**Always log:**
+- Library/framework choices
+- Architectural patterns
+- Data structure choices affecting performance
+- Trade-offs between competing concerns
+- Anything where "why not the alternative?" is reasonable
+
+**Skip logging:**
+- Obvious choices with no alternatives
+- Style preferences covered by linting
+- Decisions already documented elsewhere

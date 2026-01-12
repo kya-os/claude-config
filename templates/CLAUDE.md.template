@@ -1,0 +1,22 @@
+# [directory-name]/
+
+One sentence describing this directory's purpose.
+
+## Files
+
+| File | What | When to read |
+|------|------|--------------|
+| `example.ts` | Does X | When working on X |
+| `other.ts` | Manages Y | When Y behavior unclear |
+
+## Subdirectories
+
+| Directory | What | When to read |
+|-----------|------|--------------|
+| `utils/` | Shared utilities | Before creating new utility |
+
+## Before Creating New Code
+
+| Category | Check Location | Pattern |
+|----------|----------------|---------|
+| [Category] | `path/to/check/` | [Existing pattern to use] |
