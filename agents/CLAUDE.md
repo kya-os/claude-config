@@ -1,3 +1,9 @@
+---
+name: agents-index
+description: Navigation index for agent definitions (not an active agent)
+alwaysApply: false
+---
+
 # agents/
 
 Agent behavior definitions for specialized tasks.
