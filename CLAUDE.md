@@ -78,3 +78,26 @@ All conclusions require empirical evidence:
 | Refactoring benefit | Before/after metrics |
 | Performance claim | Benchmarks with baseline |
 | "X is better than Y" | Concrete tradeoff analysis |
+
+## Session Optimization
+
+Reduce token usage with these practices:
+
+| Command | When to Use | Benefit |
+|---------|-------------|---------|
+| `/clear` | Between unrelated tasks | Clears context, 50-70% token reduction |
+| `/compact` | Long debugging sessions | Summarizes context, continues work |
+
+**Best practice:** One objective per session for optimal results.
+
+## Do NOT Explore
+
+These directories waste context tokens - skip them:
+
+| Pattern | Reason |
+|---------|--------|
+| `node_modules/` | External dependencies |
+| `dist/` `build/` `.next/` | Build artifacts |
+| `.turbo/` `.cache/` | Cache directories |
+| `coverage/` | Test coverage reports |
+| `*.min.js` `*.bundle.js` | Bundled/minified files |

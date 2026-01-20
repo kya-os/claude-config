@@ -99,36 +99,56 @@ Use your setup skill to refresh CLAUDE.md files
 
 **Pattern Types:**
 
-| Pattern | Detection | Documentation Value |
-|---------|-----------|---------------------|
-| Factory functions | `create*`, `make*`, `build*` exports | HIGH - prevents duplication |
-| Query/mutation hooks | `use*Query`, `use*Mutation` | HIGH - enforces consistency |
-| Service classes | `*Service`, `*Manager` classes | MEDIUM - architecture clarity |
-| Validation schemas | Zod/Yup schema exports | MEDIUM - reuse opportunity |
-| Error handling | Custom error classes, handlers | MEDIUM - consistency |
-| Constants/config | UPPER_CASE exports, config files | LOW - reference value |
+| Pattern | Detection | Grep Command | Documentation Value |
+|---------|-----------|--------------|---------------------|
+| Factory functions | `create*`, `make*`, `build*` exports | `rg "export (function\|const) (create\|make\|build)"` | HIGH - prevents duplication |
+| Query/mutation hooks | `use*Query`, `use*Mutation` | `rg "export function use\w+(Query\|Mutation)"` | HIGH - enforces consistency |
+| Service classes | `*Service`, `*Manager` classes | `rg "export class \w+(Service\|Manager)"` | MEDIUM - architecture clarity |
+| Validation schemas | Zod/Yup schema exports | `rg "export const \w+Schema"` | MEDIUM - reuse opportunity |
+| Error handling | Custom error classes, handlers | `rg "export class \w+Error"` | MEDIUM - consistency |
+| Utility functions | Format, parse, convert utils | `rg "export function (format\|parse\|convert)"` | HIGH - common DRY violations |
 
 **Actions:**
 1. Scan high-complexity directories for patterns
 2. Identify "check here first" utilities
-3. Map dependencies between directories
-4. Detect naming conventions
+3. **Generate grep commands for each pattern category**
+4. Map dependencies between directories
+5. Detect naming conventions
+6. **Identify directories to exclude from exploration**
 
 **Output:**
 ```
 ## Detected Patterns
 
 ### DRY Check Locations
-| Category | Location | Pattern |
-|----------|----------|---------|
-| Data fetching | src/lib/hooks/queries/keys.ts | Query factory |
-| Mutations | src/lib/hooks/utils/mutation-factory.ts | Mutation factory |
-| Validation | src/lib/validators/schemas.ts | Zod schemas |
+| Category | Location | Grep Command |
+|----------|----------|--------------|
+| Data fetching | src/lib/hooks/queries/ | `rg "export function use\w+Query"` |
+| Mutations | src/lib/hooks/utils/ | `rg "createMutation"` |
+| Formatters | src/lib/utils/ | `rg "export function format"` |
+
+### Quick Search Commands
+```bash
+# Find existing hooks
+rg "export function use" src/lib/hooks/
+
+# Find existing utilities
+rg "export function" src/lib/utils/
+
+# Find service patterns
+rg "export class.*Service" src/services/
+```
 
 ### Conventions Detected
 - Hooks: `use[Resource]()` naming
 - Services: `[name].service.ts` files
 - Tests: `__tests__/[name].test.ts` structure
+
+### Exclude from Exploration
+- `node_modules/` - External dependencies
+- `dist/`, `build/`, `.next/` - Build artifacts
+- `.turbo/`, `.cache/` - Cache directories
+- `coverage/` - Test coverage
 ```
 
 ### Phase 4: Setup Map Generation
@@ -210,9 +230,17 @@ Proceed with generation? [Awaiting user confirmation]
 
 ## Before Creating New Code
 
-| Category | Check Location | Pattern |
-|----------|----------------|---------|
-| [category] | [relative path] | [pattern name] |
+| Category | Check Location | Grep Command |
+|----------|----------------|--------------|
+| [category] | [relative path] | `rg "[pattern]" [path]` |
+
+## Quick Search Commands
+
+[Generate 2-4 grep commands specific to this directory's patterns]
+
+## Do NOT Explore
+
+[List directories irrelevant to this context - build artifacts, deps, etc.]
 ```
 
 ### Phase 7: Verification
@@ -341,3 +369,69 @@ All generated content must be empirically verifiable:
 
 **WRONG:** Document structure without utility references
 **CORRECT:** Include "Before Creating New Code" with specific paths
+
+### Missing Grep Hints
+
+**WRONG:** "Check utils/ for formatters"
+**CORRECT:** `rg "export function format" lib/utils/`
+
+---
+
+## Token Optimization
+
+Generated CLAUDE.md files should optimize for minimal token usage:
+
+### Lean Content (~200 lines max)
+- Tables over prose
+- Grep commands over descriptions
+- "Do NOT Explore" sections to prevent unnecessary reads
+
+### Grep Hints
+Every "Before Creating" section should include runnable grep commands:
+
+```markdown
+| Category | Check Location | Grep Command |
+|----------|----------------|--------------|
+| Formatters | `lib/utils/` | `rg "export function format"` |
+| Hooks | `lib/hooks/` | `rg "export function use"` |
+```
+
+### Forbidden Directories
+Include "Do NOT Explore" section in root CLAUDE.md:
+
+```markdown
+## Do NOT Explore
+
+These directories waste context tokens:
+
+| Directory | Reason |
+|-----------|--------|
+| `node_modules/` | External dependencies |
+| `dist/` `build/` `.next/` | Build artifacts |
+| `.turbo/` `.cache/` | Cache directories |
+| `coverage/` | Test coverage reports |
+| `*.min.js` `*.bundle.js` | Bundled files |
+```
+
+### When Grep Is Not Enough
+
+For very large codebases (>500 files), consider recommending MCP semantic search:
+
+```markdown
+## Large Codebase Note
+
+This codebase may benefit from semantic search via MCP.
+See: https://zilliz.com/blog/why-im-against-claude-codes-grep-only-retrieval
+```
+
+### Session Hygiene Reminder
+
+Include in root CLAUDE.md:
+
+```markdown
+## Session Tips
+
+- Use `/clear` between unrelated tasks
+- Use `/compact` for long debugging sessions
+- One objective per session for best results
+```

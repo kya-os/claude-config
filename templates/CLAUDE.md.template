@@ -17,6 +17,26 @@ One sentence describing this directory's purpose.
 
 ## Before Creating New Code
 
-| Category | Check Location | Pattern |
-|----------|----------------|---------|
-| [Category] | `path/to/check/` | [Existing pattern to use] |
+| Category | Check Location | Grep Command |
+|----------|----------------|--------------|
+| [Category] | `path/to/check/` | `rg "export function [pattern]"` |
+
+## Quick Search Commands
+
+Use these to find existing code before creating new implementations:
+
+```bash
+# Find existing [pattern type]
+rg "export function [name]" [path]
+
+# Find usages of [pattern]
+rg "import.*from.*[module]" --type ts
+```
+
+## Do NOT Explore
+
+These directories are not relevant for this context:
+
+- `node_modules/` - External dependencies
+- `dist/` | `build/` | `.next/` - Build artifacts
+- `coverage/` - Test coverage reports
