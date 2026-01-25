@@ -56,6 +56,7 @@ Use skills when task needs full conversation context:
 
 | Skill | Use When |
 |-------|----------|
+| `prime` | **Start of session** - loads roadmap, strategy, validates freshness |
 | `plan` | Planning features (loads roadmap/strategy context) |
 | `review` | Reviewing code/plans (applies multi-lens analysis) |
 | `audit` | Detecting stale/conflicting documentation |

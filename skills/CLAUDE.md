@@ -6,6 +6,7 @@ Multi-step workflows for complex tasks.
 
 | Directory | What | When to use |
 |-----------|------|-------------|
+| `prime/` | Session priming | **Start of every session** - loads context, validates roadmap |
 | `setup/` | Repository initialization | First-time setup, adding CLAUDE.md hierarchy |
 | `audit/` | Documentation validation | Detecting stale, conflicting, or redundant docs |
 | `plan/` | Implementation planning | Complex features requiring upfront design |

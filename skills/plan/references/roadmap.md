@@ -22,11 +22,30 @@
 
 ## Active Initiatives
 
-| Initiative | Owner | Status | Dependencies |
-|------------|-------|--------|--------------|
-| Middleware Detection | Dylan | In Progress | xmcp-i blocking support |
-| Tier Display | [Name] | In Progress | Billing API |
-| Monitor Dashboards | [Name] | Completing | Analytics pipeline |
+| Initiative | Owner | Status | Target | Completion PR |
+|------------|-------|--------|--------|---------------|
+| Middleware Detection | Dylan | In Progress | Jan 31 | - |
+| Tier Display | [Name] | In Progress | Feb 15 | - |
+| Monitor Dashboards | [Name] | In Progress | Jan 31 | - |
+
+### Status Values
+- `Not Started` - Planned but work hasn't begun
+- `In Progress` - Actively being worked on
+- `Blocked` - Waiting on dependency (add note)
+- `Complete` - Done, needs cleanup after PR merges
+
+### Completion Workflow
+When an initiative is complete:
+1. Update `Status` to `Complete`
+2. Add `Completion PR` link
+3. After PR merges, move to "Completed This Quarter" section
+4. At quarter end, clear completed items
+
+## Completed This Quarter
+
+| Initiative | Owner | Completed | PR |
+|------------|-------|-----------|-----|
+| (none yet) | - | - | - |
 
 ## What's IN Scope This Quarter
 
@@ -70,4 +89,8 @@ Onboarding Redesign
 
 ---
 
-**MAINTENANCE:** Update this file at the start of each quarter and when initiatives change.
+**MAINTENANCE:**
+- Update initiative status as work progresses
+- Add Completion PR when initiatives finish
+- Clear completed items at quarter end
+- Full refresh at quarter start

@@ -61,6 +61,7 @@ Rules that apply to every interaction (in root CLAUDE.md):
 
 | Skill | Command | Purpose |
 |-------|---------|---------|
+| `prime` | `/prime` | **Run first** - loads context, validates roadmap freshness |
 | `plan` | `Use your plan skill` | Create implementation plans with roadmap context |
 | `review` | `Use your review skill` | Multi-lens code review (6 perspectives) |
 | `setup` | `Use your setup skill` | Initialize repository with CLAUDE.md hierarchy |
