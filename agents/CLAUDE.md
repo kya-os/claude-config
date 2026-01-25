@@ -6,12 +6,19 @@ alwaysApply: false
 
 # agents/
 
-Agent behavior definitions for specialized tasks.
+Agent definitions for isolated-context tasks.
 
 ## Files
 
 | File | What | When to use |
 |------|------|-------------|
-| `quality-reviewer.md` | Code review with RULE 0/1/2 hierarchy | Reviewing PRs, plans, implementations |
-| `developer.md` | Implementation from specs | Writing code from specifications |
-| `debugger.md` | Systematic bug investigation | Complex debugging requiring evidence |
+| `debugger.md` | Systematic bug investigation | Complex bugs requiring clean slate |
+| `developer.md` | Implementation from specs | Building features from detailed specifications |
+
+## When to Use Agents vs Skills
+
+| Use Agent When | Use Skill When |
+|----------------|----------------|
+| Task benefits from fresh context | Task needs conversation context |
+| Isolated investigation | Multi-perspective analysis |
+| Clean slate debugging | Planning with roadmap context |

@@ -1,72 +1,74 @@
 # KYA-OS Claude Config
 
-LLM-assisted development guardrails. Clone from [github.com/kya-os/claude-config](https://github.com/kya-os/claude-config).
+LLM-assisted development guardrails for the KYA-OS ecosystem.
 
-## First-Time Setup
+## Always-On Guardrails
 
-```
-Use your setup skill to initialize this repository
-```
+These rules apply to ALL code changes. No exceptions without explicit `// REASON:` comments.
 
-This analyzes codebase complexity and generates CLAUDE.md navigation files.
+### Code Quality
 
-## Principles
+| Rule | Standard | Violation |
+|------|----------|-----------|
+| No `any` types | Every `any` needs `// REASON:` comment | Silent type erosion |
+| Function size | < 50 lines | GOD_FUNCTION |
+| File size | < 300 lines | GOD_OBJECT |
+| No duplication | 3+ similar blocks = extract | DRY violation |
+| Single responsibility | One reason to change per unit | SOLID violation |
+| No console.log | Use structured logging | Debug leak |
 
-1. **Evidence over intuition** - Require empirical proof before conclusions
-2. **Decision preservation** - Capture WHY, not just WHAT
-3. **Context hygiene** - Minimal, just-in-time information
-4. **Review before commit** - Quality gates catch mistakes early
+### Type Parity (KYA-Specific)
 
-## Directory Structure
+When touching API code or types:
+- All shared types MUST come from `@kya-os/contracts` or `@kya-os/agentshield-shared`
+- Never duplicate type definitions across repos
+- If type doesn't exist in shared package, add it there first
+- Check: Does this change require updating the shared package?
 
-| Directory | Purpose | When to read |
-|-----------|---------|--------------|
-| `agents/` | Agent behavior definitions | Invoking specialized agents |
-| `conventions/` | Standards and rules | Understanding project rules |
-| `skills/` | Multi-step workflows | Complex tasks requiring structure |
-| `commands/` | Slash commands | Quick operations |
-| `templates/` | Reusable file templates | Creating new files |
+### Package Awareness (KYA-Specific)
 
-## Commands
+When changing code in `packages/*`:
+- Flag if change requires version bump (patch/minor/major)
+- Flag if change is breaking (requires major bump)
+- Flag downstream packages that import this
+- Flag if templates in `create-mcpi-app` need update
 
-| Command | Purpose |
-|---------|---------|
-| `/init [path]` | Generate CLAUDE.md for a directory |
+### Cross-Repo Parity
 
-## Skills
+When touching API endpoints:
+- Request/response types must exist in `@kya-os/contracts`
+- Field naming: snake_case for API, camelCase for internal
+- Auth pattern: Bearer token, consistent across endpoints
+- Zod schemas required for runtime validation
 
-| Skill | Purpose |
-|-------|---------|
-| `setup` | Initialize repository with CLAUDE.md hierarchy |
-| `audit` | Detect stale, conflicting, or redundant documentation |
-| `plan` | Create implementation plans with Decision Log |
-| `review` | Code review with RULE 0/1/2 priority |
+## Agents (Isolated Context)
 
-## Agents
+Use agents when task benefits from fresh, isolated context:
 
 | Agent | Use When |
 |-------|----------|
-| `quality-reviewer` | Review code for production risks |
-| `developer` | Implement from specs |
-| `debugger` | Systematic bug investigation |
+| `debugger` | Complex bug investigation requiring clean slate |
+| `developer` | Implementation from detailed spec |
 
-## Quick Reference
+## Skills (Main Context)
 
-### Before Writing Code
-1. Check if similar code exists (DRY)
-2. Read relevant CLAUDE.md files
-3. For non-trivial changes: `Use your plan skill`
+Use skills when task needs full conversation context:
 
-### During Implementation
-- Follow project patterns documented in CLAUDE.md hierarchy
-- No console.log (use structured logging)
-- No hardcoded values that should be configurable
+| Skill | Use When |
+|-------|----------|
+| `plan` | Planning features (loads roadmap/strategy context) |
+| `review` | Reviewing code/plans (applies multi-lens analysis) |
+| `audit` | Detecting stale/conflicting documentation |
+| `setup` | Initializing repository with CLAUDE.md hierarchy |
 
-### Before Committing
-- [ ] Ran tests
-- [ ] No temporal contamination in comments
-- [ ] Decision Log entries for non-obvious choices
-- [ ] Updated CLAUDE.md if new patterns introduced
+## Review Protocol
+
+Before approving any plan, TDD, or PR:
+
+1. **Check guardrails** (automatic - rules above)
+2. **Load relevant skill** (`plan` for planning, `review` for review)
+3. **Apply skill's workflow**
+4. **Surface conflicts** for human decision
 
 ## Evidence Requirements
 
@@ -74,30 +76,22 @@ All conclusions require empirical evidence:
 
 | Claim Type | Minimum Evidence |
 |------------|------------------|
-| Bug root cause | 10+ debug outputs, 3+ test inputs |
+| Bug root cause | Specific file:line, reproduction steps |
 | Refactoring benefit | Before/after metrics |
 | Performance claim | Benchmarks with baseline |
 | "X is better than Y" | Concrete tradeoff analysis |
 
 ## Session Optimization
 
-Reduce token usage with these practices:
-
 | Command | When to Use | Benefit |
 |---------|-------------|---------|
-| `/clear` | Between unrelated tasks | Clears context, 50-70% token reduction |
-| `/compact` | Long debugging sessions | Summarizes context, continues work |
-
-**Best practice:** One objective per session for optimal results.
+| `/clear` | Between unrelated tasks | Fresh context |
+| `/compact` | Long sessions | Summarize and continue |
 
 ## Do NOT Explore
 
-These directories waste context tokens - skip them:
+Skip these directories - they waste context:
 
-| Pattern | Reason |
-|---------|--------|
-| `node_modules/` | External dependencies |
-| `dist/` `build/` `.next/` | Build artifacts |
-| `.turbo/` `.cache/` | Cache directories |
-| `coverage/` | Test coverage reports |
-| `*.min.js` `*.bundle.js` | Bundled/minified files |
+- `node_modules/`, `dist/`, `build/`, `.next/`
+- `.turbo/`, `.cache/`, `coverage/`
+- `*.min.js`, `*.bundle.js`
