@@ -8,12 +8,12 @@
 
 ## Product Suite
 
-### Agent Shield
+### Checkpoint Detect
 **Purpose:** Detect and protect against unauthorized AI agent access.
 **Target User:** Website owners who want visibility/control over AI traffic.
 **Value Prop:** "Know when AI is accessing your site. Control what it can do."
 
-### Agent Bouncer
+### Checkpoint Enforce
 **Purpose:** Gate access to resources based on agent identity and reputation.
 **Target User:** API/service owners who want to authorize legitimate agents.
 **Value Prop:** "Only verified, reputable agents get through."
@@ -31,8 +31,7 @@
 - Comprehensive docs with working examples
 
 ### 2. Start Simple, Add Complexity
-- Pixel (visibility) → Middleware (control) → Full Bouncer (auth)
-- Free tier for small usage → Paid for scale
+- Detect (visibility) → Enforce (control) → Govern (auth)
 
 ### 3. Protocol Over Product
 - MCP-I as open standard, not proprietary lock-in
