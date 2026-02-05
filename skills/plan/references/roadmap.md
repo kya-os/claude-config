@@ -5,28 +5,14 @@
 
 ## Current OKRs
 
-### O1: Ship Agent Shield v1.1
-- **KR1:** Detection + blocking middleware live (Target: Jan 31)
-- **KR2:** 5 beta customers using blocking (Target: Feb 15)
-- **KR3:** <100ms p95 latency on detection (Target: Feb 28)
+### O1:
 
-### O2: MCP-I Ecosystem Adoption
-- **KR1:** 10 third-party MCP servers using MCP-I (Target: Mar 15)
-- **KR2:** create-mcpi-app scaffolds all supported platforms (Target: Feb 28)
-- **KR3:** Documentation coverage >90% (Target: Mar 31)
-
-### O3: Bouncer Dashboard Polish
-- **KR1:** Monitor dashboards with real data (Target: Jan 31)
-- **KR2:** Tier/billing visibility complete (Target: Feb 15)
-- **KR3:** <3 click onboarding flow (Target: Feb 28)
 
 ## Active Initiatives
 
 | Initiative | Owner | Status | Target | Completion PR |
 |------------|-------|--------|--------|---------------|
-| Middleware Detection | Dylan | In Progress | Jan 31 | - |
-| Tier Display | [Name] | In Progress | Feb 15 | - |
-| Monitor Dashboards | [Name] | In Progress | Jan 31 | - |
+
 
 ### Status Values
 - `Not Started` - Planned but work hasn't begun
@@ -49,33 +35,14 @@ When an initiative is complete:
 
 ## What's IN Scope This Quarter
 
-- Agent Shield middleware (detection + blocking)
-- Bouncer dashboard data visualization
-- MCP-I framework stabilization
-- Tier/billing visibility (display only, not management)
-- Documentation improvements
 
 ## What's OUT of Scope This Quarter
 
-- Custom IDP support (Q2)
-- Multi-tenant billing management (Q2)
-- Agent marketplace (Q3+)
-- Self-service tier upgrades (Q2)
-- Mobile dashboard (not planned)
 
 ## Key Dependencies
 
 ```
-Agent Shield Blocking
-    └── requires: xmcp-i blocking support
-    └── requires: Detection confidence thresholds
 
-Tier Display
-    └── requires: Billing API (external team)
-    └── blocks: Warning states
-
-Onboarding Redesign
-    └── requires: Detection shipped
 ```
 
 ## Cross-Repo Coordination
