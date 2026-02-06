@@ -1,7 +1,3 @@
----
-description: Initialize CLAUDE.md for a directory. Usage: /init [path]
----
-
 # Directory Initialization
 
 Generate a CLAUDE.md file for the specified directory.
